@@ -12,7 +12,6 @@ import {
   Zap,
   Shield,
   Cloud,
-  Smartphone,
   Plus,
   Minus
 } from "lucide-react";
@@ -37,6 +36,19 @@ const Index = () => {
       return () => clearTimeout(timer);
     }
   }, [headlineIndex]);
+
+  useEffect(() => {
+    if (typeof document === "undefined") {
+      return;
+    }
+
+    const root = document.documentElement;
+    root.classList.add("dark");
+
+    return () => {
+      root.classList.remove("dark");
+    };
+  }, []);
 
   const features = [
     {
@@ -92,7 +104,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-hero">
+    <div className="min-h-screen bg-gradient-hero text-foreground">
       {/* Navigation */}
       <nav className="border-b border-border/50 backdrop-blur-sm bg-background/80 sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4">
@@ -159,12 +171,14 @@ const Index = () => {
               </div>
             </div>
             
-            <div className="flex flex-col items-center gap-2 animate-fade-in" style={{animationDelay: '0.4s'}}>
+            <div className="flex flex-col items-center gap-3 animate-fade-in" style={{animationDelay: '0.4s'}}>
               <p className="text-sm text-muted-foreground font-medium">Or try our native Android app</p>
-              <div className="p-3 bg-card border-2 border-primary/20 rounded-xl shadow-soft hover:shadow-glow transition-all">
-                <div className="w-24 h-24 bg-gradient-primary rounded-lg flex items-center justify-center">
-                  <Smartphone className="h-12 w-12 text-primary-foreground" />
-                </div>
+              <div className="p-3 bg-card/80 border border-primary/20 rounded-xl shadow-soft hover:shadow-glow transition-all">
+                <img
+                  src="/android-app-qr.png"
+                  alt="QR code to download the Android app"
+                  className="h-24 w-24 rounded-lg border border-border/40 bg-background/80 p-1"
+                />
               </div>
               <p className="text-xs text-muted-foreground">Scan to download</p>
             </div>
